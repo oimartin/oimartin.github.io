@@ -24,8 +24,5 @@ Temporary Items
 .apdisk
 
 
-### Jekyll ###
-_site/
-
 ### Sass ###
 .sass-cache

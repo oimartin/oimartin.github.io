@@ -3,16 +3,20 @@ Find alternative method to using Google Distance Matrix API and find an API that
 
 <h4>Tools</h4>
 Python, Cloudera Machine Learning, Jupyter, Impala SQL
-<br>
+
+<h4>Exploring Options</h4>
 At the time of creating this project section, Google Distance Matrix API costs $5.00 per 1000 coordinate. The project I was working on the goal was to finding driving distances between millions of locations. Google Distance Matrix API is not a viable solution and similarly, other APIs like Bing also cost per API call for one driving distance calculation.
 <div align="center">
 <img alt="google distance matrix api pricing" src="assets/img/Google_distance_matrix_api.JPG" width="700" height="400">
 </div>
 <i>Google Distance Matrix API  <a href="https://developers.google.com/maps/documentation/distance-matrix/usage-and-billing"> here</a></i>
+
+<br>
+<br>
 <br>
 
 <h4>The World of Open Source GIS API</h4>
-<br>
+
 I initially found <a href="https://www.openstreetmap.org/#map=3/38.01/-95.84">OpenStreetMap</a> which is a open source map supported by individual contributers and major organizations like Apple, University College of London and many more. I tried using Selenium to crawl OpenStreetMap, but that was not advisable as it went against the terms of use. I also tried web crawling on Goolge Distance Matrix API, but same issues with terms of service. 
 <br>
 <i>However...</i> After some direction from my mentor, I was able to focus my efforts to finding the API Open Street Map uses. 
@@ -21,6 +25,18 @@ I initially found <a href="https://www.openstreetmap.org/#map=3/38.01/-95.84">Op
  The next challenging problem was coordinating the location coordinates with location ids as these were in seperate tables. 
  The existing distances were caclulated using the <a href="https://en.wikipedia.org/wiki/As_the_crow_flies">crow flying distance</a> which requires no API and only a calculation. 
 <br>
+<br>
+<br>
 <div align="center">
 <i>Improving the distance calculation from crow flying distnce to driving distance could allow better comparison of churn at locations or user preference.</i>
 </div>
+
+<br>
+<br>
+<br>
+<img alt="comparing crow fly vs driving distance" src="../assets/gif/crow_fly_distance_vs_driving.gif" width="700" height="400">
+
+
+<h4>Combining Existing Data with OSRM API</h4>
+I created a Python program in Jupyter notebook within Cloudera Machine Learning. After getting a test set of coordinate data with location id, I started to test out how to correctly use the data to utilize the batch processing of OSRM API. The next part was to figure out how to section off the coordinate data appropriately. In order to create the best comparison, I wanted to make sure all coordinate pairs in the test set could be paired with other cooridate pairs to find the driving distance. Since OSRM data allows 100 coordinate pairs at a time, I divided 100 coordinate pairs into groups of 50 and 25. The next step was creating the timing to run the program in a very simple way. I used the time library to create pauses in the API calls to try and not overload the OSRM API call limits. I did face difficulties running this program on the full set of coordinate pairs and had to later limit the coordinate pairs with a crow flying distance of less than 100 miles apart for filtering. Even with the filtered data, I ran into issues running the program fully. The next steps after getting the driving distance data from the OSRM API was to compare the driving distances to the crow fly distances. The hope is to asses the to metrics and learn if the driving distances will make a difference or not in future calculations.
+

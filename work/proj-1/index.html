@@ -1,1 +1,26 @@
-<p>More comming soon!</p>
+<h4>Purpose</h4>
+Find alternative method to using Google Distance Matrix API and find an API that allows for batch processing of coordinate pairs or addresses
+
+<h4>Tools</h4>
+Python, Cloudera Machine Learning, Jupyter, Impala SQL
+<br>
+At the time of creating this project section, Google Distance Matrix API costs $5.00 per 1000 coordinate. The project I was working on the goal was to finding driving distances between millions of locations. Google Distance Matrix API is not a viable solution and similarly, other APIs like Bing also cost per API call for one driving distance calculation.
+<div align="center">
+<img alt="google distance matrix api pricing" src="assets/img/Google_distance_matrix_api.JPG" width="700" height="400">
+</div>
+<i>Google Distance Matrix API  <a href="https://developers.google.com/maps/documentation/distance-matrix/usage-and-billing"> here</a></i>
+<br>
+
+<h4>The World of Open Source GIS API</h4>
+<br>
+I initially found <a href="https://www.openstreetmap.org/#map=3/38.01/-95.84">OpenStreetMap</a> which is a open source map supported by individual contributers and major organizations like Apple, University College of London and many more. I tried using Selenium to crawl OpenStreetMap, but that was not advisable as it went against the terms of use. I also tried web crawling on Goolge Distance Matrix API, but same issues with terms of service. 
+<br>
+<i>However...</i> After some direction from my mentor, I was able to focus my efforts to finding the API Open Street Map uses. 
+ <a href="https://project-osrm.org/"> Open Source Routing Machine</a> proivides the API to OpenStreetMap data. 
+ The great thing about OSRM is that it offers batch processing for 100 coordinates at at time, generates a 100 x 100 matrix for dual driving distance between coordinates, offers time between coordinates and is open source. 
+ The next challenging problem was coordinating the location coordinates with location ids as these were in seperate tables. 
+ The existing distances were caclulated using the <a href="https://en.wikipedia.org/wiki/As_the_crow_flies">crow flying distance</a> which requires no API and only a calculation. 
+<br>
+<div align="center">
+<i>Improving the distance calculation from crow flying distnce to driving distance could allow better comparison of churn at locations or user preference.</i>
+</div>
